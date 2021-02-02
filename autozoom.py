@@ -4,14 +4,6 @@ import datetime
 import time
 import click
 
-def format_date(x):
-	date_list = x.split(sep="-")
-	return list(map(int, date_list))
-
-def format_time(x):
-	time_list = x.split(sep="-")
-	return list(map(int, time_list))
-
 def format_data(x):
 	data_list = x.split(sep="-")
 	return list(map(int, data_list))
@@ -20,8 +12,8 @@ def given_datetime(given_date, given_time):
 	return datetime.datetime(given_date[2], given_date[1], given_date[0], given_time[0], given_time[1], given_time[2])
 
 def join_meeting(zoom_link, meeting_date, meeting_time):
-	meeting_date_x = format_date(meeting_date)
-	meeting_time_x = format_time(meeting_time)
+	meeting_date_x = format_data(meeting_date)
+	meeting_time_x = format_data(meeting_time)
 	required_datetime = given_datetime(meeting_date_x, meeting_time_x)
 
 	# time difference
@@ -41,4 +33,10 @@ def join_meeting(zoom_link, meeting_date, meeting_time):
 	time.sleep(3)
 	pyg.click(x=1897, y=957, clicks=1, interval=0, button='left')
 
-join_meeting("https://us04web.zoom.us/j/77714464098?pwd=a1ZOY1hRenpBU3NWbUlEaXB5SWNjQT09", "02-02-2021", "00-36-00")
+def leave_meeting():
+	pyg.click(x=3739,y=2110, clicks=2, interval=0, button='left')
+	time.sleep(2)
+	pyg.click(x=3590,y=1955, clicks=1, interval=0, button='left')
+
+#join_meeting("https://us04web.zoom.us/j/77714464098?pwd=a1ZOY1hRenpBU3NWbUlEaXB5SWNjQT09", "02-02-2021", "00-36-00")
+leave_meeting()
