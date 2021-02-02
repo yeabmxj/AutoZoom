@@ -11,7 +11,7 @@ def format_data(x):
 def given_datetime(given_date, given_time):
 	return datetime.datetime(given_date[2], given_date[1], given_date[0], given_time[0], given_time[1], given_time[2])
 
-def join_meeting(zoom_link, meeting_date, meeting_time):
+def wait_time(meeting_date, meeting_time):
 	meeting_date_x = format_data(meeting_date)
 	meeting_time_x = format_data(meeting_time)
 	required_datetime = given_datetime(meeting_date_x, meeting_time_x)
@@ -20,6 +20,9 @@ def join_meeting(zoom_link, meeting_date, meeting_time):
 	wait_time_sec = (required_datetime - datetime.datetime.now().replace(microsecond=0)).total_seconds()	
 	print("Your ZOOM meeting starts in " + str(wait_time_sec/60) + " min")
 	time.sleep(wait_time_sec)
+
+def join_meeting(zoom_link, meeting_date, meeting_time):
+	wait_time(meeting_date, meeting_time)
 
 	# zoom stuff
 	chrome_path="C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
@@ -33,7 +36,9 @@ def join_meeting(zoom_link, meeting_date, meeting_time):
 	time.sleep(3)
 	pyg.click(x=1897, y=957, clicks=1, interval=0, button='left')
 
-def leave_meeting():
+def leave_meeting(meeting_date, meeting_time):
+	wait_time(meeting_date, meeting_time)
+
 	pyg.click(x=3739,y=2110, clicks=2, interval=0, button='left')
 	time.sleep(2)
 	pyg.click(x=3590,y=1955, clicks=1, interval=0, button='left')
